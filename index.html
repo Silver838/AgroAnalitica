@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#234B52">
+    <title>AgroAnalítica | Gestión agrícola</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="imagenes/logo_agroanalitica.jpg" alt="Logo AgroAnalítica" class="brand-logo">
+            <div class="brand-caption"><strong>AgroAnalítica</strong><small>Gestión inteligente</small></div>
+        </div>
+        <p class="menu-label">MENÚ PRINCIPAL</p>
+        <nav>
+            <button class="nav-link active" data-page="dashboard"><span class="nav-symbol">▦</span><span>Panel principal</span></button>
+            <button class="nav-link" data-page="registros"><span class="nav-symbol">＋</span><span>Registros agrícolas</span></button>
+            <button class="nav-link" data-page="cultivos"><span class="nav-symbol">♧</span><span>Mis cultivos</span></button>
+            <button class="nav-link" data-page="analisis"><span class="nav-symbol">▥</span><span>Análisis</span></button>
+            <button class="nav-link" data-page="reportes"><span class="nav-symbol">▤</span><span>Reportes</span></button>
+        </nav>
+        <div class="sidebar-bottom">
+            <div class="offline-indicator"><span class="status-dot"></span><div><strong>Almacenamiento local</strong><small>Datos guardados en este equipo</small></div></div>
+            <small class="version">AgroAnalítica · Prototipo 2.0</small>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div><span class="eyebrow">PLATAFORMA AGRÍCOLA</span><h1 id="page-title">Panel principal</h1></div>
+            <div class="topbar-right"><span class="connection"><span class="status-dot"></span> Modo local</span><div class="avatar">AA</div></div>
+        </header>
+
+        <div class="content">
+            <section class="page active" id="dashboard">
+                <div class="welcome">
+                    <div><h2>Resumen de tu actividad agrícola</h2><p>Consulta el comportamiento de tus cultivos y finanzas.</p></div>
+                    <button class="primary-btn" data-go="registros">＋ Nuevo registro</button>
+                </div>
+                <div class="stats-grid">
+                    <article class="stat-card"><div class="stat-top"><span>Costos registrados</span><span class="stat-icon">↘</span></div><h2 id="total-costos">$0</h2><small>Gastos acumulados</small></article>
+                    <article class="stat-card"><div class="stat-top"><span>Ingresos registrados</span><span class="stat-icon">↗</span></div><h2 id="total-ingresos">$0</h2><small>Ventas acumuladas</small></article>
+                    <article class="stat-card"><div class="stat-top"><span>Ganancia estimada</span><span class="stat-icon">◎</span></div><h2 id="total-ganancia">$0</h2><small>Ingresos menos costos</small></article>
+                    <article class="stat-card"><div class="stat-top"><span>Producción registrada</span><span class="stat-icon">♧</span></div><h2 id="total-produccion">0 kg</h2><small>Producción acumulada</small></article>
+                </div>
+                <div class="dashboard-grid">
+                    <article class="panel"><div class="panel-heading"><div><h3>Actividad reciente</h3><p>Últimos movimientos registrados</p></div><button class="text-btn" data-go="registros">Ver registros</button></div><div id="recent-list" class="table-wrap"></div></article>
+                    <article class="panel"><div class="panel-heading"><div><h3>Balance financiero</h3><p>Distribución general</p></div></div>
+                        <div class="balance-box">
+                            <div class="balance-row"><span>Ingresos</span><strong id="balance-ingresos">$0</strong></div><div class="balance-track"><div id="income-bar" class="balance-fill income-fill"></div></div>
+                            <div class="balance-row"><span>Costos</span><strong id="balance-costos">$0</strong></div><div class="balance-track"><div id="cost-bar" class="balance-fill cost-fill"></div></div>
+                            <div class="balance-result"><small>Resultado neto</small><strong id="balance-neto">$0</strong></div>
+                        </div>
+                    </article>
+                </div>
+                <article class="panel"><div class="panel-heading"><div><h3>Producción por cultivo</h3><p>Comparación de cantidades registradas en kilogramos</p></div></div><div id="dashboard-chart" class="chart"></div></article>
+            </section>
+
+            <section class="page" id="registros">
+                <div class="section-intro"><h2>Registros agrícolas</h2><p>Registra gastos, cosechas y ventas para mantener organizada tu información.</p></div>
+                <div class="panel form-panel">
+                    <div class="form-title-row"><h3 id="form-title">Agregar un movimiento</h3><span id="edit-mode-label" class="edit-label hidden">Editando registro</span></div>
+                    <form id="record-form">
+                        <input type="hidden" id="editing-id">
+                        <div class="form-grid">
+                            <label>Tipo de registro<select id="tipo" required><option value="gasto">Gasto o costo</option><option value="produccion">Producción o cosecha</option><option value="venta">Venta o ingreso</option></select></label>
+                            <label>Cultivo<input id="cultivo" list="cultivo-options" placeholder="Ej. Papa" required><datalist id="cultivo-options"><option value="Papa"><option value="Tomate"><option value="Fríjol"><option value="Maíz"><option value="Arveja"><option value="Cebolla"></datalist></label>
+                            <label>Descripción<input id="descripcion" placeholder="Ej. Compra de fertilizante" required></label>
+                            <label>Fecha<input id="fecha" type="date" required></label>
+                            <label id="category-label">Categoría del gasto<select id="categoria"><option value="Semillas">Semillas</option><option value="Fertilizantes">Fertilizantes</option><option value="Agroquímicos">Agroquímicos</option><option value="Mano de obra">Mano de obra</option><option value="Riego">Riego</option><option value="Transporte">Transporte</option><option value="Maquinaria">Maquinaria</option><option value="Otros">Otros</option></select></label>
+                            <label id="amount-label">Valor del gasto (COP)<input id="valor" type="number" min="1" step="100" placeholder="Ej. 150000"></label>
+                            <label id="quantity-label" class="hidden"><span id="quantity-label-text">Cantidad producida (kg)</span><input id="cantidad" type="number" min="0.1" step="0.1" placeholder="Ej. 250"></label>
+                            <label id="sale-price-label" class="hidden">Precio por kilogramo (COP)<input id="precio-kg" type="number" min="1" step="50" placeholder="Ej. 2500"></label>
+                            <label id="sale-total-label" class="hidden">Total de la venta (COP)<input id="venta-total" type="text" value="$0" readonly></label>
+                        </div>
+                        <div class="form-actions"><button type="reset" class="secondary-btn" id="clear-form">Limpiar</button><button type="button" class="secondary-btn hidden" id="cancel-edit">Cancelar edición</button><button type="submit" class="primary-btn" id="save-record">Guardar registro</button></div>
+                    </form>
+                </div>
+
+                <article class="panel">
+                    <div class="panel-heading"><div><h3>Historial de movimientos</h3><p>Busca, filtra y organiza la información almacenada en este dispositivo.</p></div><span class="count-label" id="record-count">0 registros</span></div>
+                    <div class="filters-grid">
+                        <label class="search-field">Buscar<input id="filter-search" type="search" placeholder="Cultivo o descripción..."></label>
+                        <label>Tipo<select id="filter-type"><option value="">Todos</option><option value="gasto">Gastos</option><option value="produccion">Producción</option><option value="venta">Ventas</option></select></label>
+                        <label>Cultivo<select id="filter-crop"><option value="">Todos los cultivos</option></select></label>
+                        <label>Categoría<select id="filter-category"><option value="">Todas</option><option>Semillas</option><option>Fertilizantes</option><option>Agroquímicos</option><option>Mano de obra</option><option>Riego</option><option>Transporte</option><option>Maquinaria</option><option>Otros</option></select></label>
+                        <label>Desde<input type="date" id="filter-from"></label>
+                        <label>Hasta<input type="date" id="filter-to"></label>
+                        <label>Ordenar por<select id="filter-sort"><option value="date-desc">Fecha: más reciente</option><option value="date-asc">Fecha: más antigua</option><option value="value-desc">Valor: mayor a menor</option><option value="value-asc">Valor: menor a mayor</option></select></label>
+                        <div class="filter-actions"><button class="secondary-btn" id="clear-filters" type="button">Limpiar filtros</button></div>
+                    </div>
+                    <div class="filter-summary" id="filter-summary"></div>
+                    <div id="records-table" class="table-wrap"></div>
+                </article>
+            </section>
+
+            <section class="page" id="cultivos">
+                <div class="section-intro"><h2>Mis cultivos</h2><p>Consulta el comportamiento de cada cultivo a partir de sus movimientos registrados.</p></div>
+                <div class="crop-overview" id="crop-overview"></div>
+                <div id="crop-grid" class="crop-grid"></div>
+            </section>
+
+            <section class="page" id="analisis">
+                <div class="section-intro"><h2>Análisis de información</h2><p>Visualiza y compara los resultados de tu actividad agrícola.</p></div>
+                <div class="stats-grid compact-stats">
+                    <article class="stat-card"><span>Rentabilidad estimada</span><h2 id="analysis-margin">0%</h2><small>Ganancia / ingresos</small></article>
+                    <article class="stat-card"><span>Cultivos registrados</span><h2 id="analysis-crops">0</h2><small>Cultivos diferentes</small></article>
+                    <article class="stat-card"><span>Movimientos</span><h2 id="analysis-records">0</h2><small>Registros almacenados</small></article>
+                </div>
+                <div class="analysis-grid">
+                    <article class="panel"><div class="panel-heading"><div><h3>Producción por cultivo</h3><p>Cantidad total en kilogramos</p></div></div><div id="analysis-production-chart" class="chart"></div></article>
+                    <article class="panel"><div class="panel-heading"><div><h3>Ingresos y costos</h3><p>Comparación financiera</p></div></div><div id="finance-chart" class="chart"></div></article>
+                </div>
+                <div class="analysis-grid">
+                    <article class="panel"><div class="panel-heading"><div><h3>Gastos por categoría</h3><p>Distribución de los costos registrados</p></div></div><div id="expense-chart" class="chart"></div></article>
+                    <article class="panel"><div class="panel-heading"><div><h3>Actividad mensual</h3><p>Movimientos registrados por mes</p></div></div><div id="monthly-chart" class="chart"></div></article>
+                </div>
+                <article class="panel"><div class="panel-heading"><div><h3>Indicadores financieros</h3><p>Resultados calculados a partir de tus registros</p></div></div><div id="financial-indicators" class="indicator-list"></div></article>
+            </section>
+
+            <section class="page" id="reportes">
+                <div class="section-intro"><h2>Reportes agrícolas</h2><p>Genera un resumen de los movimientos registrados.</p></div>
+                <article class="panel report-panel">
+                    <div class="report-heading"><img src="imagenes/logo_agroanalitica.jpg" alt="AgroAnalítica" class="report-logo"><div><h3>Informe general de actividad</h3><p>Resumen de información almacenada en AgroAnalítica</p></div></div>
+                    <div id="report-summary" class="report-summary"></div>
+                    <div class="report-subsection"><h3>Resumen por cultivo</h3><div id="report-crops" class="table-wrap"></div></div>
+                    <div class="report-subsection"><h3>Gastos por categoría</h3><div id="report-expenses" class="table-wrap"></div></div>
+                    <div class="form-actions"><button class="secondary-btn" id="export-csv">Exportar registros CSV</button><button class="primary-btn" id="print-report">Imprimir reporte</button></div>
+                </article>
+                <article class="panel notice-panel"><strong>Nota sobre la información</strong><p>Los resultados se calculan con los registros ingresados por el usuario. La ganancia presentada es una estimación simple de ingresos menos gastos registrados; no representa necesariamente la rentabilidad total de una finca.</p></article>
+            </section>
+            <footer class="footer">AgroAnalítica · Herramienta de apoyo para la toma de decisiones agrícolas.</footer>
+        </div>
+    </main>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
