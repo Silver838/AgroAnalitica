@@ -71,9 +71,9 @@
                             <label>Descripción<input id="descripcion" placeholder="Ej. Compra de fertilizante" required></label>
                             <label>Fecha<input id="fecha" type="date" required></label>
                             <label id="category-label">Categoría del gasto<select id="categoria"><option value="Semillas">Semillas</option><option value="Fertilizantes">Fertilizantes</option><option value="Agroquímicos">Agroquímicos</option><option value="Mano de obra">Mano de obra</option><option value="Riego">Riego</option><option value="Transporte">Transporte</option><option value="Maquinaria">Maquinaria</option><option value="Otros">Otros</option></select></label>
-                            <label id="amount-label">Valor del gasto (COP)<input id="valor" type="number" min="1" step="100" placeholder="Ej. 150000"></label>
+                            <label id="amount-label">Valor del gasto (COP)<input id="valor" type="number" min="1" step="1" placeholder="Ej. 150000"></label>
                             <label id="quantity-label" class="hidden"><span id="quantity-label-text">Cantidad producida (kg)</span><input id="cantidad" type="number" min="0.1" step="0.1" placeholder="Ej. 250"></label>
-                            <label id="sale-price-label" class="hidden">Precio por kilogramo (COP)<input id="precio-kg" type="number" min="1" step="50" placeholder="Ej. 2500"></label>
+                            <label id="sale-price-label" class="hidden">Precio por kilogramo (COP)<input id="precio-kg" type="number" min="1" step="1" placeholder="Ej. 2500"></label>
                             <label id="sale-total-label" class="hidden">Total de la venta (COP)<input id="venta-total" type="text" value="$0" readonly></label>
                         </div>
                         <div class="form-actions"><button type="reset" class="secondary-btn" id="clear-form">Limpiar</button><button type="button" class="secondary-btn hidden" id="cancel-edit">Cancelar edición</button><button type="submit" class="primary-btn" id="save-record">Guardar registro</button></div>
